@@ -1,0 +1,278 @@
+// ==============================================================================
+// EduVision DV - Power BI DAX Measures Library
+// Author: Antigravity Team
+// Architecture: Higher Education Performance Analytics (4 Integrated Views)
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// 1. CORE EXECUTIVE KPI MEASURES (OVERVIEW BANNER)
+// ------------------------------------------------------------------------------
+
+Total Universities = 
+DISTINCTCOUNT(University_Performance[university_name])
+
+Total Universities Display = 
+FORMAT([Total Universities], "#,##0") & " Ranked Universities"
+
+Top Ranked Institution = 
+CALCULATE(
+    FIRSTNONBLANK(University_Performance[university_name], 1),
+    FILTER(
+        University_Performance,
+        University_Performance[global_rank] = 1
+    )
+)
+
+Top Ranked Country = 
+CALCULATE(
+    FIRSTNONBLANK(University_Performance[country], 1),
+    FILTER(
+        University_Performance,
+        University_Performance[global_rank] = 1
+    )
+)
+
+Top Global Ranking Display = 
+"#1 " & [Top Ranked Institution] & " (" & [Top Ranked Country] & ")"
+
+Avg Overall Score = 
+ROUND(AVERAGE(University_Performance[kpi_global_ranking_score]), 1)
+
+Avg International Students Pct = 
+ROUND(AVERAGE(University_Performance[kpi_international_student_pct]), 1)
+
+Avg International Students Pct Display = 
+FORMAT([Avg International Students Pct] / 100, "0.0%")
+
+Faculty to Student Ratio Numeric = 
+ROUND(AVERAGE(University_Performance[faculty_to_student_ratio_numeric]), 1)
+
+Faculty to Student Ratio Display = 
+"1 : " & FORMAT([Faculty to Student Ratio Numeric], "0.0")
+
+Total Publications = 
+SUM(University_Performance[publications_count])
+
+Total Publications Display = 
+VAR PubCount = [Total Publications]
+RETURN
+    IF(
+        PubCount >= 1000000,
+        FORMAT(PubCount / 1000000, "0.00") & "M",
+        IF(
+            PubCount >= 1000,
+            FORMAT(PubCount / 1000, "0") & "K",
+            FORMAT(PubCount, "#,##0")
+        )
+    )
+
+Total Citations = 
+SUM(University_Performance[citations_total])
+
+Total Citations Display = 
+VAR CitCount = [Total Citations]
+RETURN
+    IF(
+        CitCount >= 1000000,
+        FORMAT(CitCount / 1000000, "0.00") & "M",
+        FORMAT(CitCount / 1000, "0.0") & "K"
+    )
+
+Avg Citations per Faculty = 
+ROUND(AVERAGE(University_Performance[citations_per_faculty_score]), 1)
+
+Avg Academic Reputation Score = 
+ROUND(AVERAGE(University_Performance[kpi_academic_reputation_score]), 1)
+
+Avg Research Impact Score = 
+ROUND(AVERAGE(University_Performance[kpi_research_impact_score]), 1)
+
+Avg Research Productivity Index = 
+ROUND(AVERAGE(University_Performance[kpi_research_productivity_index]), 1)
+
+Total Student Body = 
+SUM(University_Performance[student_count])
+
+Total International Students = 
+SUM(University_Performance[international_student_count])
+
+// ------------------------------------------------------------------------------
+// 2. YEAR-OVER-YEAR (YoY) VARIANCE MEASURES
+// ------------------------------------------------------------------------------
+
+Selected Year = 
+SELECTEDVALUE(University_Performance[year], 2024)
+
+Prior Year Score = 
+VAR CurrYear = [Selected Year]
+RETURN
+    CALCULATE(
+        [Avg Overall Score],
+        University_Performance[year] = CurrYear - 1
+    )
+
+Score YoY Delta Pct = 
+VAR Prev = [Prior Year Score]
+VAR Curr = [Avg Overall Score]
+RETURN
+    IF(
+        NOT(ISBLANK(Prev)) && Prev > 0,
+        DIVIDE(Curr - Prev, Prev, 0),
+        BLANK()
+    )
+
+Score YoY Display = 
+VAR Delta = [Score YoY Delta Pct]
+VAR PrevYr = [Selected Year] - 1
+RETURN
+    IF(
+        ISBLANK(Delta),
+        "-",
+        IF(
+            Delta >= 0,
+            "▲ +" & FORMAT(Delta, "0.0%") & " vs " & PrevYr,
+            "▼ " & FORMAT(Delta, "0.0%") & " vs " & PrevYr
+        )
+    )
+
+Prior Year Intl Pct = 
+VAR CurrYear = [Selected Year]
+RETURN
+    CALCULATE(
+        [Avg International Students Pct],
+        University_Performance[year] = CurrYear - 1
+    )
+
+Intl Students YoY Delta Pct = 
+VAR Prev = [Prior Year Intl Pct]
+VAR Curr = [Avg International Students Pct]
+RETURN
+    IF(
+        NOT(ISBLANK(Prev)) && Prev > 0,
+        DIVIDE(Curr - Prev, Prev, 0),
+        BLANK()
+    )
+
+Intl Students YoY Display = 
+VAR Delta = [Intl Students YoY Delta Pct]
+VAR PrevYr = [Selected Year] - 1
+RETURN
+    IF(
+        ISBLANK(Delta),
+        "-",
+        IF(
+            Delta >= 0,
+            "▲ +" & FORMAT(Delta, "0.0%") & " vs " & PrevYr,
+            "▼ " & FORMAT(Delta, "0.0%") & " vs " & PrevYr
+        )
+    )
+
+Prior Year Faculty Ratio = 
+VAR CurrYear = [Selected Year]
+RETURN
+    CALCULATE(
+        [Faculty to Student Ratio Numeric],
+        University_Performance[year] = CurrYear - 1
+    )
+
+Faculty Ratio YoY Delta = 
+VAR Prev = [Prior Year Faculty Ratio]
+VAR Curr = [Faculty to Student Ratio Numeric]
+RETURN
+    IF(
+        NOT(ISBLANK(Prev)),
+        Curr - Prev,
+        BLANK()
+    )
+
+Faculty Ratio YoY Display = 
+VAR Delta = [Faculty Ratio YoY Delta]
+VAR PrevYr = [Selected Year] - 1
+RETURN
+    IF(
+        ISBLANK(Delta),
+        "-",
+        IF(
+            Delta >= 0,
+            "▲ +" & FORMAT(Delta, "0.0") & " vs " & PrevYr,
+            "▼ " & FORMAT(Delta, "0.0") & " vs " & PrevYr
+        )
+    )
+
+Prior Year Publications = 
+VAR CurrYear = [Selected Year]
+RETURN
+    CALCULATE(
+        [Total Publications],
+        University_Performance[year] = CurrYear - 1
+    )
+
+Publications YoY Growth Pct = 
+VAR Prev = [Prior Year Publications]
+VAR Curr = [Total Publications]
+RETURN
+    IF(
+        NOT(ISBLANK(Prev)) && Prev > 0,
+        DIVIDE(Curr - Prev, Prev, 0),
+        BLANK()
+    )
+
+Publications YoY Display = 
+VAR Delta = [Publications YoY Growth Pct]
+VAR PrevYr = [Selected Year] - 1
+RETURN
+    IF(
+        ISBLANK(Delta),
+        "-",
+        IF(
+            Delta >= 0,
+            "▲ +" & FORMAT(Delta, "0.0%") & " vs " & PrevYr,
+            "▼ " & FORMAT(Delta, "0.0%") & " vs " & PrevYr
+        )
+    )
+
+// ------------------------------------------------------------------------------
+// 3. RANKING, BENCHMARKING & TIER MEASURES
+// ------------------------------------------------------------------------------
+
+Top 100 Universities Count = 
+CALCULATE(
+    COUNTROWS(University_Performance),
+    University_Performance[global_rank] <= 100
+)
+
+Top 100 Universities Pct = 
+DIVIDE([Top 100 Universities Count], [Total Universities], 0)
+
+Top 10 Flag = 
+IF(SELECTEDVALUE(University_Performance[global_rank]) <= 10, 1, 0)
+
+// ------------------------------------------------------------------------------
+// 4. DYNAMIC TITLES & UX LABELS
+// ------------------------------------------------------------------------------
+
+Selected Region Name = 
+IF(
+    ISFILTERED(University_Performance[region]),
+    SELECTEDVALUE(University_Performance[region]),
+    "All Global Regions"
+)
+
+Selected Subject Discipline = 
+IF(
+    ISFILTERED(University_Performance[subject_area]),
+    SELECTEDVALUE(University_Performance[subject_area]),
+    "All Disciplines"
+)
+
+Overview Page Title = 
+"Higher Education Performance Overview — " & [Selected Region Name] & " (" & [Selected Year] & ")"
+
+Research Page Title = 
+"Research Impact & Publication Velocity Analytics — " & [Selected Subject Discipline]
+
+Student Page Title = 
+"Student Diversity, International Mobility & Faculty Ratio Analytics"
+
+Country Page Title = 
+"Sovereign Higher Education Benchmarks & Top 100 Concentration"

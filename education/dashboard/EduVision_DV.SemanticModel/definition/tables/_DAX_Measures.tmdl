@@ -1,0 +1,78 @@
+table _DAX_Measures
+	lineageTag: 052ba010-0efb-445d-bd40-c64dc700ca88
+
+	measure 'Total Universities' = DISTINCTCOUNT(University_Performance[university_name])
+		formatString: #,##0
+		lineageTag: 5e647626-853c-45ce-9d08-c99507c1ecca
+
+	measure 'Total Universities Display' = FORMAT([Total Universities], "#,##0") & " Ranked Universities"
+		lineageTag: 1105ef72-ca7e-4181-bb40-125eb16bc6df
+
+	measure 'Avg Overall Score' = ROUND(AVERAGE(University_Performance[kpi_global_ranking_score]), 1)
+		formatString: 0.0
+		lineageTag: 70dafcb6-65cb-47c5-85bb-edee2ee8ff81
+
+	measure 'Avg International Students Pct' = ROUND(AVERAGE(University_Performance[kpi_international_student_pct]), 1)
+		formatString: 0.0
+		lineageTag: 878d26a7-12d2-4292-a26b-fdc4cbdf697e
+
+	measure 'Avg International Students Pct Display' = FORMAT([Avg International Students Pct] / 100, "0.0%")
+		lineageTag: 96c1b6f8-a55f-419b-983c-f5fcb94ff6a6
+
+	measure 'Faculty to Student Ratio Numeric' = ROUND(AVERAGE(University_Performance[faculty_to_student_ratio_numeric]), 1)
+		formatString: 0.0
+		lineageTag: 95383506-7087-43ce-ac52-cea56abb0219
+
+	measure 'Faculty to Student Ratio Display' = "1 : " & FORMAT([Faculty to Student Ratio Numeric], "0.0")
+		lineageTag: a5c8a150-0862-4175-9f2d-7069f661588d
+
+	measure 'Total Publications' = SUM(University_Performance[publications_count])
+		formatString: #,##0
+		lineageTag: d82a8ea9-a2ec-4e78-bd55-1aaccda8c112
+
+	measure 'Total Publications Display' = VAR PubCount = [Total Publications] RETURN IF(PubCount >= 1000000, FORMAT(PubCount / 1000000, "0.00") & "M", IF(PubCount >= 1000, FORMAT(PubCount / 1000, "0") & "K", FORMAT(PubCount, "#,##0")))
+		lineageTag: 57a2845a-f4db-490e-bd05-00bbbe7748c8
+
+	measure 'Top Ranked Institution' = CALCULATE(FIRSTNONBLANK(University_Performance[university_name], 1), FILTER(University_Performance, University_Performance[global_rank] = 1))
+		lineageTag: a69cd5ed-770b-40b9-a8ff-1e6c406a5e0c
+
+	measure 'Top Global Ranking Display' = "#1 " & [Top Ranked Institution]
+		lineageTag: d84807a6-40e3-4760-93b9-b7ccca15eb60
+
+	measure 'Total Citations' = SUM(University_Performance[citations_total])
+		formatString: #,##0
+		lineageTag: 3a06449f-2129-40de-afda-2592a6a3eb70
+
+	measure 'Total Citations Display' = VAR CitCount = [Total Citations] RETURN IF(CitCount >= 1000000, FORMAT(CitCount / 1000000, "0.00") & "M", FORMAT(CitCount / 1000, "0.0") & "K")
+		lineageTag: 224814cb-d198-4379-ba45-0c26742e17f9
+
+	measure 'Avg Research Impact Score' = ROUND(AVERAGE(University_Performance[kpi_research_impact_score]), 1)
+		formatString: 0.0
+		lineageTag: 9c276cae-df7a-4221-ae07-37406120a925
+
+	measure 'Avg Academic Reputation Score' = ROUND(AVERAGE(University_Performance[kpi_academic_reputation_score]), 1)
+		formatString: 0.0
+		lineageTag: c21b92ac-f577-4033-9097-b4a62eb848da
+
+	measure 'Avg Research Productivity Index' = ROUND(AVERAGE(University_Performance[kpi_research_productivity_index]), 1)
+		formatString: 0.0
+		lineageTag: 3d569b45-6a3e-4444-94b4-21e34acf7cd0
+
+	measure 'Total Students' = SUM(University_Performance[student_count])
+		formatString: #,##0
+		lineageTag: f8be5a89-1776-41d6-8ab2-9d4edf79ea8d
+
+	measure 'Total International Students' = SUM(University_Performance[international_student_count])
+		formatString: #,##0
+		lineageTag: 8c16d78d-81dc-4780-a00a-cacb3fa0dc6d
+
+	column Placeholder
+		dataType: string
+		isHidden
+		lineageTag: 08c2f8b6-70de-4601-876d-fea3a47df82b
+		sourceColumn: Placeholder
+
+	partition _DAX_Measures_Partition = m
+		mode: import
+		source = let Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Placeholder = _t]) in Source
+

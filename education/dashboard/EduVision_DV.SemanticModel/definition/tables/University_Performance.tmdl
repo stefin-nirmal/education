@@ -1,0 +1,263 @@
+table University_Performance
+	lineageTag: 695136b7-c49e-4e75-a363-c83565b7c02d
+
+	column global_rank
+		dataType: int64
+		lineageTag: 347ea556-530a-4420-a188-27ac9cc1d86e
+		sourceColumn: global_rank
+
+	column university_name
+		dataType: string
+		lineageTag: 45446b6e-7c6a-43b4-b23a-4764642ba3ee
+		sourceColumn: university_name
+
+	column country
+		dataType: string
+		lineageTag: 90ae491b-b11f-40c5-b531-13f16d21ebbc
+		sourceColumn: country
+
+	column region
+		dataType: string
+		lineageTag: b89f8fb6-3ed3-4fa6-8198-8118ce8fb460
+		sourceColumn: region
+
+	column year
+		dataType: int64
+		lineageTag: 01295f10-2920-4c43-b9e5-28960d2d855b
+		sourceColumn: year
+
+	column subject_area
+		dataType: string
+		lineageTag: 546ff666-5687-4ceb-b669-28d299cbb84e
+		sourceColumn: subject_area
+
+	column overall_score_qs
+		dataType: double
+		lineageTag: 75834eb6-95e4-4cfb-b381-351be5b645eb
+		sourceColumn: overall_score_qs
+
+	column overall_score_the
+		dataType: double
+		lineageTag: a55a3314-aa93-4c35-9291-18609de9d1a4
+		sourceColumn: overall_score_the
+
+	column overall_score_harmonized
+		dataType: double
+		lineageTag: 2b0e3d51-88b6-485f-8a2c-6d411803edaa
+		sourceColumn: overall_score_harmonized
+
+	column academic_reputation_score
+		dataType: double
+		lineageTag: 276e0227-70aa-401b-beb8-a023c12beb6f
+		sourceColumn: academic_reputation_score
+
+	column employer_reputation_score
+		dataType: double
+		lineageTag: f277d732-b534-4f06-9fcf-83f43612450c
+		sourceColumn: employer_reputation_score
+
+	column citations_per_faculty_score
+		dataType: double
+		lineageTag: 14b788d5-7f08-487c-a878-52720e5dff46
+		sourceColumn: citations_per_faculty_score
+
+	column faculty_count
+		dataType: int64
+		lineageTag: 8f666889-27ee-4875-b2b5-5ea975c47ebb
+		sourceColumn: faculty_count
+
+	column student_count
+		dataType: int64
+		lineageTag: 7878a2e4-ad0f-461c-a74a-43e85de65088
+		sourceColumn: student_count
+
+	column international_students_pct
+		dataType: double
+		lineageTag: 6e8145b4-650b-4a19-9bfd-e189ea394000
+		sourceColumn: international_students_pct
+
+	column publications_count
+		dataType: int64
+		lineageTag: 42394c2b-b86c-412d-a8b1-d116bc0b2d90
+		sourceColumn: publications_count
+
+	column citations_total
+		dataType: int64
+		lineageTag: b196903f-84d9-4d46-af26-cf7410a1181f
+		sourceColumn: citations_total
+
+	column industry_income_score
+		dataType: double
+		lineageTag: c4d44923-1bf7-47d4-bd76-3d96ba6e8c38
+		sourceColumn: industry_income_score
+
+	column kpi_global_ranking_score
+		dataType: double
+		lineageTag: a7f377bc-2988-4958-94b0-8b6344b88dab
+		sourceColumn: kpi_global_ranking_score
+
+	column kpi_research_impact_score
+		dataType: double
+		lineageTag: 97f172bd-8427-4eb7-a724-0770d96a91ea
+		sourceColumn: kpi_research_impact_score
+
+	column faculty_to_student_ratio_numeric
+		dataType: double
+		lineageTag: 8a862dc4-eb8d-4485-bed9-61c89316e6e9
+		sourceColumn: faculty_to_student_ratio_numeric
+
+	column kpi_faculty_student_ratio_display
+		dataType: string
+		lineageTag: eef53a07-c35f-4b45-bc1a-3d7789f606fe
+		sourceColumn: kpi_faculty_student_ratio_display
+
+	column kpi_international_student_pct
+		dataType: double
+		lineageTag: 6c6a46cd-fa4f-4da8-acb1-e8576b33d291
+		sourceColumn: kpi_international_student_pct
+
+	column international_student_count
+		dataType: int64
+		lineageTag: 50445e4a-053b-4cf1-a20b-2860619bc467
+		sourceColumn: international_student_count
+
+	column kpi_academic_reputation_score
+		dataType: double
+		lineageTag: 1fd906b5-ef0c-4320-a275-dfd41cb56e54
+		sourceColumn: kpi_academic_reputation_score
+
+	column kpi_research_productivity_index
+		dataType: double
+		lineageTag: 3cc1b542-4c55-4bd9-8c86-80f0b990c439
+		sourceColumn: kpi_research_productivity_index
+
+	column rank_tier
+		dataType: string
+		lineageTag: 832bc764-d4a5-4437-9472-132fcec81e1d
+		sourceColumn: rank_tier
+
+	column yoy_score_change
+		dataType: double
+		lineageTag: c617f23f-7d70-4351-8028-0c8c3b27b270
+		sourceColumn: yoy_score_change
+
+	column yoy_score_pct_change
+		dataType: double
+		lineageTag: b85fd757-b680-42d4-8da2-0fe36a1c8b04
+		sourceColumn: yoy_score_pct_change
+
+	column yoy_intl_pct_change
+		dataType: double
+		lineageTag: 1586bb89-87b2-48b0-b894-91c037ea78d4
+		sourceColumn: yoy_intl_pct_change
+
+	column yoy_ratio_change
+		dataType: double
+		lineageTag: d78de234-7108-4085-940e-de47b6a019e1
+		sourceColumn: yoy_ratio_change
+
+	column yoy_pubs_pct_change
+		dataType: double
+		lineageTag: 4696c989-66e2-4e05-b396-419b8efc6896
+		sourceColumn: yoy_pubs_pct_change
+
+	column source_qs_id
+		dataType: string
+		lineageTag: ec89932a-48c6-48d6-942a-4c196316cff7
+		summarizeBy: none
+		sourceColumn: source_qs_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_the_id
+		dataType: string
+		lineageTag: 3fd61fe3-ed1b-4280-977d-286a581ec4f5
+		summarizeBy: none
+		sourceColumn: source_the_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataset_source
+		dataType: string
+		lineageTag: 87455b19-1c6d-47bc-b525-35524e3ca562
+		summarizeBy: none
+		sourceColumn: dataset_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column rank_qs
+		dataType: string
+		lineageTag: ef830a74-fd40-4e28-9e85-e37967dff8f8
+		summarizeBy: none
+		sourceColumn: rank_qs
+
+		annotation SummarizationSetBy = Automatic
+
+	column rank_the
+		dataType: string
+		lineageTag: 27cebfb0-2758-4783-82dc-ee99cf814af8
+		summarizeBy: none
+		sourceColumn: rank_the
+
+		annotation SummarizationSetBy = Automatic
+
+	column research_productivity_raw
+		dataType: string
+		lineageTag: 72af38f0-baf4-4fe5-a065-bffd9fa07dcb
+		summarizeBy: none
+		sourceColumn: research_productivity_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column prev_year_score
+		dataType: string
+		lineageTag: e6cb1f60-8879-4942-ad15-40f6d8ee408f
+		summarizeBy: none
+		sourceColumn: prev_year_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column prev_year_intl_pct
+		dataType: string
+		lineageTag: 560cea1b-3065-4199-acf6-2580696c469b
+		summarizeBy: none
+		sourceColumn: prev_year_intl_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column prev_year_ratio
+		dataType: string
+		lineageTag: 6d4e2934-2272-4fbd-8880-68d374401e87
+		summarizeBy: none
+		sourceColumn: prev_year_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column prev_year_pubs
+		dataType: string
+		lineageTag: 2d26f4ab-e58b-488a-a7cc-f29cfcc38d96
+		summarizeBy: none
+		sourceColumn: prev_year_pubs
+
+		annotation SummarizationSetBy = Automatic
+
+	partition University_Performance_Partition = m
+		mode: import
+		source =
+				let Source = Csv.Document(File.Contents("C:\\Users\\stefi\\Desktop\\education\\data\\university_final_dataset.csv"),[Delimiter=",", Columns=42, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{
+				        {"global_rank", Int64.Type}, {"university_name", type text}, {"country", type text}, {"region", type text},
+				        {"year", Int64.Type}, {"subject_area", type text}, {"overall_score_qs", type number}, {"overall_score_the", type number},
+				        {"overall_score_harmonized", type number}, {"academic_reputation_score", type number}, {"employer_reputation_score", type number},
+				        {"citations_per_faculty_score", type number}, {"faculty_count", Int64.Type}, {"student_count", Int64.Type},
+				        {"international_students_pct", type number}, {"publications_count", Int64.Type}, {"citations_total", Int64.Type},
+				        {"industry_income_score", type number}, {"kpi_global_ranking_score", type number}, {"kpi_research_impact_score", type number},
+				        {"faculty_to_student_ratio_numeric", type number}, {"kpi_faculty_student_ratio_display", type text},
+				        {"kpi_international_student_pct", type number}, {"international_student_count", Int64.Type},
+				        {"kpi_academic_reputation_score", type number}, {"kpi_research_productivity_index", type number}, {"rank_tier", type text},
+				        {"yoy_score_change", type number}, {"yoy_score_pct_change", type number}, {"yoy_intl_pct_change", type number},
+				        {"yoy_ratio_change", type number}, {"yoy_pubs_pct_change", type number}
+				    })
+				in #"Changed Type"
+
